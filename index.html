@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Intelligence Extraction</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">        
+        <div class="app-layout">
+            <!-- Left sidebar with sample files -->
+            <div class="sidebar">
+                <h2 class="sidebar-title">Sample Files</h2>
+                <p class="sidebar-text">Click to test with sample documents</p>
+                
+                <div class="sample-files">
+                    <div class="sample-file" data-filename="sample01.pdf">
+                        <span class="file-icon">📄</span>
+                        <span>sample01.pdf</span>
+                        <div class="file-actions">
+                            <button class="file-view-btn" title="Load file"><i>📂</i></button>
+                            <button class="file-download-btn" title="Download file"><i>⬇️</i></button>
+                        </div>
+                    </div>
+
+                    <div class="sample-file" data-filename="sample02.pdf">
+                        <span class="file-icon">📄</span>
+                        <span>sample02.pdf</span>
+                        <div class="file-actions">
+                            <button class="file-view-btn" title="Load file"><i>📂</i></button>
+                            <button class="file-download-btn" title="Download file"><i>⬇️</i></button>
+                        </div>
+                    </div>
+
+                    <div class="sample-file" data-filename="sample03.pdf">
+                        <span class="file-icon">📄</span>
+                        <span>sample03.pdf</span>
+                        <div class="file-actions">
+                            <button class="file-view-btn" title="Load file"><i>📂</i></button>
+                            <button class="file-download-btn" title="Download file"><i>⬇️</i></button>
+                        </div>
+                    </div>
+
+                    <div class="sample-file" data-filename="sample04.pdf">
+                        <span class="file-icon">📄</span>
+                        <span>sample04.pdf</span>
+                        <div class="file-actions">
+                            <button class="file-view-btn" title="Load file"><i>📂</i></button>
+                            <button class="file-download-btn" title="Download file"><i>⬇️</i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right side with upload area -->
+            <div class="main-content">
+                <div class="upload-section">
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                        </div>
+                        <p>Drag & drop your document here</p>
+                        <p class="upload-divider">- or -</p>
+                        <button id="selectImageBtn" class="select-btn">Select File</button>
+                    </div>
+                    <div id="selectedFileName" class="selected-filename hidden"></div>
+                    <input type="file" id="documentInput" accept=".zip,.pdf,.jpg,.jpeg,.png,.tif,.tiff,.bmp" hidden>
+                    <div class="process-button-container">
+                        <button id="processButton" class="process-btn hidden">Process Document</button>
+                    </div>
+                </div>
+
+                <!-- Configuration section -->
+                <div class="config-section hidden" id="configSection">
+                    <h2>Configuration</h2>
+                    <div class="form-group">
+                        <label for="endpointInput">Azure AI Document Intelligence Endpoint:</label>
+                        <input type="text" id="endpointInput" placeholder="https://your-resource.cognitiveservices.azure.com/" value="https://arka-ai-doc-01.cognitiveservices.azure.com/">
+                    </div>
+                    <div class="form-group">
+                        <label for="keyInput">API Key:</label>
+                        <input type="password" id="keyInput" placeholder="Enter your API key" value="3JqiYney8iwWgc7zinqFm5gzqD1VRBuOpSeuS7KEScwp7UYevEYvJQQJ99BEACqBBLyXJ3w3AAALACOGJcWg">
+                    </div>
+                    <div class="form-group">
+                        <label for="modelIdInput">Model ID:</label>
+                        <input type="text" id="modelIdInput" placeholder="Enter your custom model ID" value="ai-model-03">
+                    </div>
+                </div>
+
+                <div id="loadingIndicator" class="hidden">
+                    <div class="spinner"></div>
+                    <p>Processing document...</p>
+                </div>        
+                
+                <div id="resultsSection" class="hidden">
+                    <h2>Extraction Results</h2>
+                    <div class="results-actions">
+                        <button id="downloadCsvButton">Download as CSV</button>
+                    </div>
+                    <div class="results-instructions">
+                        <p><i>Tip: Click on any cell to edit its value. Drag column headers to reorder them.</i></p>
+                    </div>
+                    <div id="extractedData">
+                        <table id="resultsTable">
+                            <thead>
+                                <tr>
+                                    <th>Field Name</th>
+                                    <th>Value</th>
+                                    <th>Confidence</th>
+                                </tr>
+                            </thead>
+                            <tbody id="resultsTableBody">
+                                <!-- Results will be inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="errorMessage" class="hidden">
+                    <h3>Error</h3>
+                    <p id="errorText"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

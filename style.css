@@ -1,0 +1,421 @@
+:root {
+    --primary-color: #0078d4;
+    --secondary-color: #005a9e;
+    --light-gray: #f3f3f3;
+    --dark-gray: #333333;
+    --border-color: #cccccc;
+    --sidebar-bg: #1a2942;
+    --sidebar-text: #ffffff;
+    --main-bg: #f9f9f9;
+    --upload-bg: #2a3b55;
+    --edit-highlight: #fff8e1;
+    --edit-border: #ffc107;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #0e1624;
+    color: var(--dark-gray);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    height: 100vh;
+}
+
+h1 {
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+}
+
+/* App Layout - Side by side */
+.app-layout {
+    display: flex;
+    gap: 20px;
+    height: calc(100vh - 40px);  /* Full height minus padding */
+}
+
+/* Sidebar Styles */
+.sidebar {
+    flex: 0 0 300px;
+    background-color: var(--sidebar-bg);
+    border-radius: 5px;
+    padding: 20px;
+    color: var(--sidebar-text);
+    overflow-y: auto;
+}
+
+.sidebar-title {
+    color: var(--sidebar-text);
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.sidebar-text {
+    color: #adb5bd;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+/* Sample Files Display */
+.sample-files {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sample-file {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #263450;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.sample-file:hover {
+    background-color: #334666;
+}
+
+.file-icon {
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+
+.file-actions {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+}
+
+.file-view-btn, .file-download-btn {
+    background: none;
+    border: none;
+    color: #adb5bd;
+    cursor: pointer;
+    padding: 3px;
+    transition: color 0.2s;
+}
+
+.file-view-btn:hover, .file-download-btn:hover {
+    color: #ffffff;
+}
+
+/* Main Content Styles */
+.main-content {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.upload-section, .config-section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+input[type="file"] {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: var(--secondary-color);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+#loadingIndicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.spinner {
+    border: 5px solid var(--light-gray);
+    border-top: 5px solid var(--primary-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#resultsSection {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto; /* Enable horizontal scrolling if needed */
+}
+
+/* Add responsive table container */
+#extractedData {
+    width: 100%;
+    overflow-x: auto; /* Enable horizontal scrolling for wide tables */
+    margin-bottom: 15px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    table-layout: auto; /* Allow table to adjust based on content */
+    min-width: 100%; /* Ensure table takes full width of container */
+}
+
+th {
+    background-color: var(--light-gray);
+    font-weight: bold;
+    white-space: nowrap; /* Prevent header text from wrapping */
+    position: sticky;
+    top: 0; /* Make headers sticky when scrolling vertically */
+    cursor: grab; /* Indicate headers are draggable */
+    user-select: none; /* Prevent text selection during drag */
+}
+
+th.draggable-header {
+    cursor: grab; 
+    position: relative;
+}
+
+th.draggable-header:hover::after {
+    content: "↔";
+    position: absolute;
+    right: 5px;
+    opacity: 0.5;
+}
+
+th.draggable-header:hover {
+    background-color: #e0e0e0;
+}
+
+th.dragging {
+    opacity: 0.5;
+    background-color: #d0d0d0;
+}
+
+th.drag-over {
+    border-left: 2px solid var(--primary-color);
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    max-width: 300px; /* Limit cell width to prevent extremely wide cells */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Show ellipsis for overflowing text */
+}
+
+/* Editable table cell styles */
+td[contenteditable="true"] {
+    position: relative;
+    transition: background-color 0.2s;
+}
+
+td[contenteditable="true"]:hover {
+    background-color: #f5f5f5;
+    cursor: text;
+}
+
+td[contenteditable="true"]:focus {
+    background-color: var(--edit-highlight);
+    outline: none;
+    box-shadow: inset 0 0 0 2px var(--edit-border);
+}
+
+td[contenteditable="true"].editing {
+    background-color: var(--edit-highlight);
+}
+
+td.edited {
+    position: relative;
+}
+
+td.edited::after {
+    content: '✎';
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    font-size: 10px;
+    color: var(--primary-color);
+}
+
+/* For very wide tables on small screens */
+@media screen and (max-width: 768px) {
+    th, td {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+}
+
+.upload-area {
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    padding: 40px 20px;
+    text-align: center;
+    background-color: var(--upload-bg);
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.upload-area:hover, .upload-area.dragover {
+    border-color: #007bff;
+    background-color: #1e3355;
+}
+
+.upload-icon {
+    margin-bottom: 15px;
+}
+
+.upload-icon svg {
+    color: #adb5bd;
+}
+
+.upload-area p {
+    color: #d1d1d1;
+    margin: 8px 0;
+    font-size: 16px;
+}
+
+.upload-divider {
+    margin: 15px 0;
+    color: #8a8a8a;
+}
+
+.select-btn {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 10px 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.select-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Add these styles for the centered process button */
+
+.process-button-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Add space between buttons */
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.change-btn {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.change-btn:hover {
+    background-color: #5a6268;
+}
+
+.change-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.process-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.process-btn:hover {
+    background-color: #218838;
+}
+
+.process-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.selected-filename {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #f0f8ff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    text-align: center;
+    color: #333;
+}
